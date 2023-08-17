@@ -12,12 +12,23 @@ struct MainView: View {
     @ObservedObject var mainViewModel = MainViewModel()
     
     var body: some View {
+        
         NavigationStack{
-            List(mainViewModel.posts){ post in
-                Text(post.title)
+            
+                List(mainViewModel.posts){ post in
+                    HStack {
+                        VStack {
+                            Image(systemName: "star.circle")
+                                .foregroundColor(.yellow)
+                            Text(String(post.points))
+                        }
+                        
+                        .padding(.trailing, 5)
+                        Text(post.title)
+                    }
+                }
+                .navigationTitle("Hacker News")
             }
-            .navigationTitle("Hacker News")
-        }
         .onAppear {
             mainViewModel.fetchData()
         }
