@@ -15,7 +15,10 @@ struct MainView: View {
         
         NavigationStack{
             
-                List(mainViewModel.posts){ post in
+            List(mainViewModel.posts){ post in
+                NavigationLink {
+                    DetailView(url: post.url)
+                } label: {
                     HStack {
                         VStack {
                             Image(systemName: "star.circle")
@@ -23,12 +26,14 @@ struct MainView: View {
                             Text(String(post.points))
                         }
                         
-                        .padding(.trailing, 5)
+                        .padding(.trailing)
                         Text(post.title)
                     }
                 }
-                .navigationTitle("Hacker News")
+                
             }
+            .navigationTitle("Hacker News")
+        }
         .onAppear {
             mainViewModel.fetchData()
         }
